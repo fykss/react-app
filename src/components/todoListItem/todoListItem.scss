@@ -1,5 +1,6 @@
 .todo-list-item {
     font-size: 1.25rem;
+    font-weight: 300;
 
     .todo-list-item-label {
         margin-left: 1.25rem;
@@ -14,8 +15,9 @@
 }
 
 .todo-list-item.important .todo-list-item-label {
-    font-weight: bold;
-    color: steelblue;
+    font-weight: 400;
+    text-decoration: underline;
+    color: black;
 }
 
 .todo-list-item button {

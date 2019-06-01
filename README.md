@@ -1,1 +1,1 @@
-### Learn React JS
+### Simple Todo app in React

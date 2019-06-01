@@ -11,11 +11,21 @@ export default class App extends Component {
 
     state = {
         todoData: [
-            { label: 'drink coffee', important: false, id: 1 },
-            { label: 'make app', important: true, id: 2 },
-            { label: 'have a lunch', important: true, id: 3 }
-        ]
+            this.createTodoItem('Eat'),
+            this.createTodoItem('Sleep'),
+            this.createTodoItem('Code'),
+            this.createTodoItem('Repeat')
+        ],
+        term: ''
     };
+
+    createTodoItem(label) {
+        return {
+            label,
+            important: false,
+            id: this.maxId++
+        };
+    }
 
     deleteItem = id => {
         this.setState(({ todoData }) => {
@@ -33,11 +43,7 @@ export default class App extends Component {
     };
 
     addItem = text => {
-        const newItem = {
-            label: text,
-            important: false,
-            id: this.maxId++
-        };
+        const newItem = this.createTodoItem(text);
 
         this.setState(({ todoData }) => {
             const newArr = [...todoData, newItem];
@@ -48,16 +54,31 @@ export default class App extends Component {
         });
     };
 
+    search(items, term) {
+        if (term.length === 0) {
+            return items;
+        }
+
+        return items.filter(item => {
+            return item.label.toLowerCase().indexOf(term.toLowerCase()) > -1;
+        });
+    }
+
+    onSearchChange = term => {
+        this.setState({ term });
+    };
+
     render() {
+        const { todoData, term } = this.state;
+
+        const visibleItem = this.search(todoData, term);
+
         return (
             <div>
                 <AppHeader />
-                <Search />
-                <TodoList
-                    todos={this.state.todoData}
-                    onDeleted={this.deleteItem}
-                />
                 <AddForm onItemAdded={this.addItem} />
+                <TodoList todos={visibleItem} onDeleted={this.deleteItem} />
+                <Search onLabelSearch={this.onSearchChange} />
             </div>
         );
     }
