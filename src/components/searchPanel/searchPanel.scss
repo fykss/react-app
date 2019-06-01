@@ -4,4 +4,12 @@
 
 .form-search input {
     font-weight: 300;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 0;
+}
+
+.form-search button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
